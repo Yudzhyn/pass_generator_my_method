@@ -2,6 +2,8 @@
 Pass-generator by my own method
 '''
 
+import clipboard
+
 class password():
 
     def __init__(self):
@@ -72,6 +74,13 @@ class password():
         '''
         print(f"Password for \"{self.site}\":  {self.password}")
 
+    def copy_to_clipboard(self):
+        '''
+            Created password immediately is coping to clipboard
+        '''
+        clipboard.copy(self.password)
+
+
 
 def quit():
     '''
@@ -92,4 +101,5 @@ if __name__ == "__main__":
         input_site_name = input("Please enter the site name in (for example -> \"google.com\"): ")
         password_object.pass_creat(input_site_name)
         password_object.show_created_password()
+        password_object.copy_to_clipboard()
         quit()
