@@ -21,13 +21,20 @@ class password():
            3) +    {characters_of_keyword_that_are_not_in_site_name}
            4) +    {first_character_from_name_site_that_are_not_in_keyword_uppercase}
            5) +    {18+len(site_name)}
-           
+          
         '''
+
         self.site = full_name_site_input
         full_name_site_input = full_name_site_input.split(".")
-        self.password = ""
-        site_name = full_name_site_input[0]
-        domain_name = full_name_site_input[1]
+        
+        # site name
+        if len(full_name_site_input) > 2:
+            site_name = "".join(word for word in full_name_site_input[0 : len(full_name_site_input) - 1])
+        else:
+            site_name = full_name_site_input[0]
+        
+        # domain name
+        domain_name = full_name_site_input[-1]
 
         # STEP 1
         # 16 + length of domain name of the site
@@ -67,6 +74,7 @@ class password():
         # STEP 5
         self.password += str(18 + len(site_name))
         #--------------------------------------------------------
+
     
     def show_created_password(self):
         '''
@@ -79,6 +87,7 @@ class password():
             Created password immediately is coping to clipboard
         '''
         clipboard.copy(self.password)
+
 
 
 
@@ -98,8 +107,13 @@ def quit():
 if __name__ == "__main__":
     while(True):
         password_object = password()
-        input_site_name = input("Please enter the site name in (for example -> \"google.com\"): ")
-        password_object.pass_creat(input_site_name)
+        #input_site_name = input("Please enter the site name in (for example -> \"google.com\"): ")
+        password_object.pass_creat("pdr.hsc.gov.ua")
         password_object.show_created_password()
         password_object.copy_to_clipboard()
         quit()
+
+
+
+
+### pdr.hsc.gov.ua
