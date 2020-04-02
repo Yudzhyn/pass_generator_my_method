@@ -89,29 +89,14 @@ class password():
         clipboard.copy(self.password)
 
 
-
-
-def quit():
-    '''
-        Quite from program
-    '''
-    while(True):
-        input_key = input("Do you want to exit to program (y/n):  ")
-        if input_key == 'y' or input_key == 'Y':
-            exit(0)
-        elif input_key == 'n' or input_key == 'N':
-            return None
-        else:
-            continue
-
-if __name__ == "__main__":
-    while(True):
-        password_object = password()
-        #input_site_name = input("Please enter the site name in (for example -> \"google.com\"): ")
-        password_object.pass_creat("pdr.hsc.gov.ua")
-        password_object.show_created_password()
-        password_object.copy_to_clipboard()
-        quit()
+#if __name__ == "__main__":
+#    while(True):
+#        password_object = password()
+#        #input_site_name = input("Please enter the site name in (for example -> \"google.com\"): ")
+#        password_object.pass_creat("pdr.hsc.gov.ua")
+#        password_object.show_created_password()
+#        password_object.copy_to_clipboard()
+#        quit()
 
 
 
