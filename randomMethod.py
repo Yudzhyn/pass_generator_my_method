@@ -6,7 +6,7 @@ symbols_digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 characters_groups = [symbols_letters, symbols_digits]
 
-def passCreateRandom():
+def passCreateRandom() -> str:
     length_password = _input_length_password()
     password = ""
     for i in range(length_password):
@@ -20,7 +20,7 @@ def passCreateRandom():
     return password
 
 
-def _input_length_password():
+def _input_length_password() -> int:
     while True:
         try:
             length_password = int(input("Enter please length of your password: "))
@@ -32,4 +32,3 @@ def _input_length_password():
             else:
                 print("Length of password don't be less then 0! Please enter number more than 0.")
                 continue
-

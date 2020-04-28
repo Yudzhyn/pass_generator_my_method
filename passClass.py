@@ -1,6 +1,7 @@
 from randomMethod import passCreateRandom as randomMethod
 from myMethod import passCreateMyOwn as myMethod
-import clipboard
+import SQLite
+import clipboard as cp
 
 # the site for which the password is generated
 class Password():
@@ -25,9 +26,12 @@ class Password():
             self.passCreateRandom(self)
         self.copy_to_clipboard(self)
 
+
     def passShow(self):
         print(f"Site: {self.site}, password: {self.password}")
         return None
+
+    #########Methods##########
 
     @staticmethod
     def passCreateMyOwn(self):
@@ -37,10 +41,19 @@ class Password():
     def passCreateRandom(self):
         self.password = randomMethod()
 
+    #########clipboard##########
+
     @staticmethod
     def copy_to_clipboard(self):
         '''
             Created password immediately is coping to clipboard
         '''
-        clipboard.copy(self.password)
+        cp.copy(self.password)
 
+    ##########SQLite##########
+
+    def insert_db(self):
+        insert_into_db(self.site, self.password, self.method)
+
+    def select_one(self):
+        select_one_pass_from_db(self.site)

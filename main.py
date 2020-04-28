@@ -7,6 +7,7 @@ def loop():
     password = Password(method, site)
     password.passShow()
 
+
 def quit():
     '''
         Quit from program
