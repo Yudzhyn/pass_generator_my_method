@@ -23,12 +23,12 @@ def passCreateRandom() -> str:
 def _input_length_password() -> int:
     while True:
         try:
-            length_password = int(input("Enter please length of your password: "))
+            length_password = int(input("\n  Enter please length of your password: "))
         except ValueError:
-            print("Enter please number of length in format \"integer digits\"!")
+            print("\n  Enter please number of length in format \"integer digits\"!")
         else:
             if length_password > 0:
                 return length_password
             else:
-                print("Length of password don't be less then 0! Please enter number more than 0.")
+                print("\n  Length of password don't be less then 0! Please enter number more than 0.")
                 continue

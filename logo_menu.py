@@ -1,4 +1,4 @@
-def show_logo():
+def logo():
     print("""
                              ####          ###      ######
                             ######       ######   ##
@@ -12,3 +12,18 @@ def show_logo():
                         #####   ####           ######
                                                         by Yudzhyn
         """)
+
+def menu():
+    print("""
+  ====================================
+        Select one of the items:
+  ====================================
+  [1] Create password for website
+  ------------------------------------
+  [2] Select password from database
+  ------------------------------------
+  [3] Show all passwords from database
+  ------------------------------------
+  [0] Exit
+  ------------------------------------
+            """)
