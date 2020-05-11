@@ -3,12 +3,14 @@ from passClass import Password
 from SQLite import SQL_init, SQL_close, SQL_select_one, SQL_select_all
 import os
 
+
+
 def select_menu():
     """
         Select submenu from main menu
     """
     while True:
-        select_item = int(input("\n  Run: "))
+        select_item = clear_input("\n  Run: ")
         if select_item in range(0, 5):
             break
         else:
@@ -84,6 +86,8 @@ def show_all_passwords_form_database():
     show_data_in_table(data)
     input("\n  Please press Enter for continue...")
 
+############### helpful functions #################
+
 def show_data_in_table(data):
     longest_site_string = max(map(len, data.keys()))
     longest_pass_string = max(map(len, data.values()))
@@ -96,8 +100,15 @@ def show_data_in_table(data):
     print("  " + output_sep)
     return 0
 
+def clear_input(text):
+    while True:
+        try:
+            return_data = int(input(text))
+        except ValueError:
+            continue
+        return return_data
 
-
+###################### main functions #######################
 
 def _main():
     """
