@@ -1,6 +1,6 @@
 from randomMethod import passCreateRandom as randomMethod
 from myMethod import passCreateMyOwn as myMethod
-from SQLite import SQL_insert
+from SQLite import SQL_insert, SQL_select_one, SQL_update_one
 import clipboard as cp
 
 # the site for which the password is generated
@@ -11,10 +11,10 @@ class Password():
     #for my own method
     keyword_standart = "plusultra"
 
-    def __init__(self, site, method=2, password=""):
+    def __init__(self, site, method = 2):
         self.method = self.pass_methods[method]
         self.site = site                                     # назва сайту, для якого треба згенерувати пароль
-        self.password = password                             # пароль
+        self.password = ""                                   # пароль
         self.keyword = self.keyword_standart                 # ключове слово, по якому буде створений пароль    
         self.length_password = None
         #Password.passCreate(self)
@@ -25,7 +25,6 @@ class Password():
         else:
             self.passCreateRandom(self)
         self.copy_to_clipboard(self)
-        self.insert_into_db(self)
 
 
     def passShow(self):
@@ -54,6 +53,19 @@ class Password():
 
     ##########SQLite##########
 
-    @staticmethod
     def insert_into_db(self):
         SQL_insert(self.site, self.password, self.method)
+
+    def check_password_in_db(site_name):
+        password_from_db = SQL_select_one(site_name)
+        if password_from_db != None:
+            print(f"""\n  This site already exists in the database.\n
+  Its password is: {password_from_db}\n""")
+            return 1
+        return 0
+
+    def update_password_in_db(self):
+        SQL_update_one(self.site, self.password, self.method)
+        return 0
+
+

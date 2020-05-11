@@ -32,10 +32,10 @@ def SQL_select_one(site_name):
     password = data[0][0] if data != [] else None
     return password
 
-def SQL_update_one(site_old, site_new, password, method):
+def SQL_update_one(site_name, password, method):
     cursor.execute("""UPDATE site_pass
-                   SET SiteName = '{}', Password = '{}', MethodCreate = '{}'
-                   WHERE SiteName = '{}'""".format(site_new, password, method, site_old))
+                   SET Password = '{}', MethodCreate = '{}'
+                   WHERE SiteName = '{}'""".format(password, method, site_name))
     return 0
 
 def SQL_select_all():

@@ -1,4 +1,4 @@
-from logo_menu import logo, menu
+import decor
 from passClass import Password
 from SQLite import SQL_init, SQL_close, SQL_select_one, SQL_select_all
 import os
@@ -29,22 +29,34 @@ def create_password():
         ITEM 1
     """
     os.system('cls')
-    print("""
-  ===================================
-  === Create password for website ===
-  ===================================
-    """)
+
+    create_mode = 1
+
+    decor.show_create_top_text()
+
     site_name = input("  Please, enter site's name: ")
-    print("""\n  Methods:\n
-  ------------------------------------
-  [0] Senchuk's method
-  ------------------------------------
-  [1] Random
-  ------------------------------------
-  """)
+
+    if Password.check_password_in_db(site_name):
+        print("  Do you want to update old password? [y/n]")
+        if input("  ") == 'n':
+            return 0
+        create_mode = 0
+        os.system('cls')
+        decor.show_create_top_text()      # from logo_menu.py
+
+
+    decor.show_create_methods()
+
     method = int(input("\n  Please, select method:"))
     password_obj = Password(site_name, method)
-    password_obj.passCreate()
+
+    if create_mode == 1:
+        password_obj.passCreate()
+        password_obj.insert_into_db()
+    elif create_mode == 0:
+        password_obj.passCreate()
+        password_obj.update_password_in_db()
+
     password_obj.passShow()
     return 0
 
@@ -54,14 +66,11 @@ def select_password_from_database():
         ITEM 2
     """
     os.system('cls')
-    print("""
-  =====================================
-  === Select password from database ===
-  =====================================
-    """)
+    decor.show_select_one()
     site_name = input("  Please, enter site's name: ")
     password_ = SQL_select_one(site_name)
-    password_obj = Password(site_name, password = password_)
+    password_obj = Password(site_name)
+    password_obj.password = password_
     password_obj.passShow()
     return 0
 
@@ -70,15 +79,25 @@ def show_all_passwords_form_database():
         ITEM 3
     """
     os.system('cls')
-    print("""
-  ==========================================
-  ||| Select all passwords from database |||
-  ==========================================
-    """)
+    decor.show_select_all()
     data = SQL_select_all()
-    for key in data.keys():
-        print(f"\n  Site: {key} --> Password: {data[key]}")
+    show_data_in_table(data)
     input("\n  Please press Enter for continue...")
+
+def show_data_in_table(data):
+    longest_site_string = max(map(len, data.keys()))
+    longest_pass_string = max(map(len, data.values()))
+    for key in data.keys():
+        output_sep = "=" * (longest_site_string * 2 + 12)
+        print("  " + output_sep)
+        output_site = "|| " + key + " " * (longest_site_string - len(key)) + " | "
+        output_password = data[key] + " " * (longest_pass_string - len(data[key])) + " ||"
+        print("  " + output_site + output_password)
+    print("  " + output_sep)
+    return 0
+
+
+
 
 def _main():
     """
@@ -86,8 +105,8 @@ def _main():
     """
     while True:
         os.system('cls')
-        logo()
-        menu()
+        decor.show_logo()
+        decor.show_menu()
         select_menu()
 
 
